@@ -11,19 +11,19 @@ module.exports = (sequelize, DataTypes) => {
             },
             name: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             username: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             password: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             email: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             phonenumber: {
                 type: DataTypes.INTEGER,
@@ -31,11 +31,11 @@ module.exports = (sequelize, DataTypes) => {
             },
             imgurl: {
                 type: DataTypes.STRING(500),
-                allowNull: false,
+                allowNull: true,
             },
             gender: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             xp: { type: DataTypes.INTEGER, defaultValue: 0 },
             level: { type: DataTypes.INTEGER, defaultValue: 0 }
@@ -69,8 +69,6 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(models.Stalker);
         User.hasMany(models.Tagged);
         User.hasMany(models.SavedPost);
-        User.hasMany(models.XP);
-        User.hasMany(models.Level);
     };
     return User;
 };

@@ -1,5 +1,6 @@
-const User = require('./index').User
+const db = require('./users')
 module.exports = (sequelize, DataTypes) => {
+    const User = db(sequelize, DataTypes)
     const Comment = sequelize.define(
         "comment",
         {
@@ -18,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
             hooks: {
                 beforeCreate: async function (comment) {
                     try {
-                        const userwhoComment = await User.findByPK(comment.userId);
-                        await User.update({ xp: userwhoComment.xp + 1, level: Math.trunc((userwhoComment.xp / 100)) }, { where: { id: comment.userId } });
+                        const userwhoComment = await User.findByPk(comment.userId);
+                        await User.update({ xp: userwhoComment.xp + 50, level: Math.trunc((userwhoComment.xp / 100)) }, { where: { id: comment.userId } });
 
                     } catch (e) {
                         console.log(e)

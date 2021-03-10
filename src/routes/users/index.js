@@ -17,7 +17,7 @@ const storage = new CloudinaryStorage({
 });
 const cloudinaryMulter = multer({ storage: storage });
 const jwt = require("jsonwebtoken");
-const { authenticate, refreshToken } = require("../../authenticate");
+const { authenticate, refreshToken } = require("../../auth");
 const router = require("express").Router();
 
 router.route("/register").post(async (req, res, next) => {
@@ -70,10 +70,10 @@ router.route("/login").post(async (req, res, next) => {
     }
 });
 
-router.get('/userLevel', async(req, res, next)=>{
+router.get('/userLevel', async (req, res, next) => {
     try {
-        
-        
+
+
     } catch (error) {
         console.log(error)
     }

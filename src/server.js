@@ -45,8 +45,8 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use("/potd", mainRouter);
-database.sequelize.sync({ force: true }).then(() => {
+database.sequelize.sync({ force: false }).then(() => {
   app.listen(port, () => {
-    console.log("port yeeting" + port + "monke's");
+    console.log("port yeeting", port, "monke's");
   });
 });

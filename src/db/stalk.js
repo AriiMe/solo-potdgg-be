@@ -1,5 +1,6 @@
-const User = require('./index').User
+const db = require('./users')
 module.exports = (sequelize, DataTypes) => {
+    const User = db(sequelize, DataTypes)
     const Stalk = sequelize.define(
         "stalk",
         {
@@ -15,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
                 beforeCreate: async function (stalk) {
                     try {
 
-                        const userwhoStalked = await User.findByPK(stalk.userId);
-                        await User.update({ xp: userwhoStalked.xp + 1, level: Math.trunc((userwhoStalked.xp / 100)) }, { where: { id: stalk.userId } });
+                        const userwhoStalked = await User.findByPk(stalk.userId);
+                        await User.update({ xp: userwhoStalked.xp + 20, level: Math.trunc((userwhoStalked.xp / 100)) }, { where: { id: stalk.userId } });
 
 
                     } catch (e) {

@@ -1,5 +1,7 @@
-const User = require('./index').User
+const db = require('./users')
+
 module.exports = (sequelize, DataTypes) => {
+    const User = db(sequelize, DataTypes)
     const Post = sequelize.define(
         "post",
         {
@@ -23,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
                 beforeCreate: async function (post) {
                     try {
 
-                        const post = await Post.findByPK(post.postId, { include: User })
+                        const user = await User.findByPk(post.userId)
 
-                        await User.update({ xp: post.user.xp + 5, level: Math.trunc((post.user.xp / 100)) }, { where: { id: post.userId } })
+                        await User.update({ xp: user.xp + 5, level: Math.trunc((user.xp / 100)) }, { where: { id: post.userId } })
 
                     } catch (e) {
                         console.log(e)
