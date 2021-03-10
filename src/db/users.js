@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
             name: {
                 type: DataTypes.STRING,
                 allowNull: true,
+                get() {
+                    return () => this.getDataValue('name');
+                }
             },
             username: {
                 type: DataTypes.STRING,
@@ -20,14 +23,23 @@ module.exports = (sequelize, DataTypes) => {
             password: {
                 type: DataTypes.STRING,
                 allowNull: true,
+                get() {
+                    return () => this.getDataValue('password');
+                }
             },
             email: {
                 type: DataTypes.STRING,
                 allowNull: true,
+                get() {
+                    return () => this.getDataValue('email');
+                }
             },
             phonenumber: {
                 type: DataTypes.INTEGER,
                 allowNull: true,
+                get() {
+                    return () => this.getDataValue('phonenumber');
+                }
             },
             imgurl: {
                 type: DataTypes.STRING(500),
