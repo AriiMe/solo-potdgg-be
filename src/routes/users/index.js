@@ -3,7 +3,6 @@ const Post = require("../../db").Post;
 const Stalk = require("../../db").Stalk;
 const Stalker = require("../../db").Stalker;
 const Tagged = require("../../db").Tagged;
-const Message = require("../../db").Message;
 const SavedPost = require("../../db").SavedPost;
 const multer = require("multer");
 const cloudinary = require("../../cloudinary");
@@ -70,23 +69,22 @@ router.route("/login").post(async (req, res, next) => {
     }
 });
 
-router.get('/userLevel', async (req, res, next) => {
-    try {
+// router.get('/userLevel', async (req, res, next) => {
+//     try {
 
 
-    } catch (error) {
-        console.log(error)
-    }
-})
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
 router.get("/me", authenticate, async (req, res, next) => {
     try {
         const singleUser = await User.findByPk(req.user.dataValues.id, {
             include: [
                 Post,
-                { model: Stalk, include: [{ model: User, as: "following" }] },
-                { model: Stalker, include: [{ model: User, as: "follower" }] },
+                { model: Stalk, include: [{ model: User, as: "stalking" }] },
+                { model: Stalker, include: [{ model: User, as: "stalker" }] },
                 Tagged,
-                Message,
                 SavedPost,
             ],
         });
@@ -102,8 +100,8 @@ router.get("/", authenticate, async (req, res) => {
         const allUser = await User.findAll({
             include: [
                 Post,
-                { model: Stalk, include: [{ model: User, as: "following" }] },
-                { model: Stalker, include: [{ model: User, as: "follower" }] },
+                { model: Stalk, include: [{ model: User, as: "stalking" }] },
+                { model: Stalker, include: [{ model: User, as: "stalker" }] },
                 Tagged,
             ],
         });
@@ -120,10 +118,10 @@ router.get("/:id", authenticate, async (req, res) => {
             const singleUser = await User.findByPk(req.params.id, {
                 include: [
                     Post,
-                    { model: Stalk, include: [{ model: User, as: "following" }] },
-                    { model: Stalker, include: [{ model: User, as: "follower" }] },
+                    { model: Stalk, include: [{ model: User, as: "stalking" }] },
+                    { model: Stalker, include: [{ model: User, as: "stalker" }] },
                     Tagged,
-                    Message,
+                    ,
                     SavedPost,
                 ],
             });
@@ -149,7 +147,7 @@ router.put("/:id", authenticate, async (req, res) => {
         if (req.user.dataValues.id.toString() === req.params.id) {
             const alteredUser = await User.update(req.body, {
                 where: { id: req.params.id },
-                include: [Post, Stalk, Stalker, Tagged, Message],
+                include: [Post, Stalk, Stalker, Tagged,],
                 returning: true,
             });
             res.send(alteredUser);
