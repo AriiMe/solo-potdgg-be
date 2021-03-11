@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
                         // const post = await Post.findByPk(like.postId, { include: User })
 
 
-                        await User.update({ xp: userwhoLiked.xp + 50, level: Math.trunc((userwhoLiked.xp / 100)) }, { where: { id: like.userId } })
+                        await User.update({ xp: userwhoLiked.xp + 50, level: Math.trunc((userwhoLiked.xp / 100)), coins: Math.trunc((userwhoLiked.level * 18)) }, { where: { id: like.userId } })
 
                         // await User.update({ xp: post.user.xp + 50, level: Math.trunc((post.user.xp / 100)) }, { where: { id: post.userId } })
 

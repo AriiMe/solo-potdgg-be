@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
                 beforeCreate: async function (stalker) {
                     try {
                         const userwhoStalked = await User.findByPk(stalker.userId)
-                        await User.update({ xp: userwhoStalked.xp + 5, level: Math.trunc((userwhoStalked.xp / 100)) }, { where: { id: stalker.userId } })
+                        await User.update({ xp: userwhoStalked.xp + 5, level: Math.trunc((userwhoStalked.xp / 100)), coins: Math.trunc((userwhoLiked.level * 18)) }, { where: { id: stalker.userId } })
 
                     } catch (e) {
                         console.log(e)

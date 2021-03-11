@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
                     try {
 
                         const userwhoStalked = await User.findByPk(stalk.userId);
-                        await User.update({ xp: userwhoStalked.xp + 20, level: Math.trunc((userwhoStalked.xp / 100)) }, { where: { id: stalk.userId } });
+                        await User.update({ xp: userwhoStalked.xp + 20, level: Math.trunc((userwhoStalked.xp / 100)), coins: Math.trunc((userwhoLiked.level * 18)) }, { where: { id: stalk.userId } });
 
 
                     } catch (e) {

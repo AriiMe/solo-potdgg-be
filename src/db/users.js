@@ -50,7 +50,9 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: true,
             },
             xp: { type: DataTypes.INTEGER, defaultValue: 0 },
-            level: { type: DataTypes.INTEGER, defaultValue: 0 }
+            level: { type: DataTypes.INTEGER, defaultValue: 0 },
+            coins: { type: DataTypes.INTEGER, defaultValue: 0 },
+            role: { type: DataTypes.STRING, defaultValue: "user" }
         },
         {
             hooks: {
