@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
+            imgurl: {
+                type: DataTypes.STRING(500),
+                allowNull: true,
+            },
         },
         { timestamps: true }
     );

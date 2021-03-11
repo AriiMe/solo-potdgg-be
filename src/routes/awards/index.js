@@ -1,20 +1,34 @@
 const express = require("express");
 const Awards = require("../../db").Awards;
+const multer = require("multer");
+const cloudinary = require("../../cloudinary");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "CHANGENAME",
+    },
+});
+const cloudinaryMulter = multer({ storage: storage });
 
 const router = express.Router();
 
-router.post("/:userId/:postId", async (req, res) => {
+router.post("/:userId/:postId",cloudinaryMulter.single("Awards"), async (req, res) => {
     try {
         const award = await Awards.findOne({
             where: { userId: req.params.userId, postId: req.params.postId },
         });
 
         const newAward = await Awards.create({
-            userId: req.params.userId,
+            ...req.body,
+            userId: req.user.dataValues.id,
+            imgurl: req.file.path,
             postId: req.params.postId,
+
         });
 
-        res.status(201).send("ok");
+        res.status(201).send(newAward);
     } catch (error) {
         console.log(error);
         res.status(500).send("Something went bad!");
