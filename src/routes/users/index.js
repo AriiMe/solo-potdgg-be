@@ -69,14 +69,6 @@ router.route("/login").post(async (req, res, next) => {
     }
 });
 
-// router.get('/userLevel', async (req, res, next) => {
-//     try {
-
-
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
 router.get("/me", authenticate, async (req, res, next) => {
     try {
         const singleUser = await User.findByPk(req.user.dataValues.id, {

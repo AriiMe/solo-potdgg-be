@@ -21,7 +21,7 @@ router.post("/:userId/:postId", async (req, res) => {
     }
 });
 
-router.get("/:userId/:postId/posts", async (req, res) => {
+router.get("/:userId/:postId/awards", async (req, res) => {
     try {
         const awards = await Awards.count({ where: { postId: req.params.postId } });
         const award = await Awards.findOne({

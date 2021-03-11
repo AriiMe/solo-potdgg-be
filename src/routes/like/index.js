@@ -26,7 +26,7 @@ router.post("/:userId/:postId", async (req, res) => {
     }
 });
 
-router.get("/:userId/:postId/posts", async (req, res) => {
+router.get("/:userId/:postId/likes", async (req, res) => {
     try {
         const likes = await Like.count({ where: { postId: req.params.postId } });
         const like = await Like.findOne({
