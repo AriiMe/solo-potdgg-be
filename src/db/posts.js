@@ -25,9 +25,17 @@ module.exports = (sequelize, DataTypes) => {
                 beforeCreate: async function (post) {
                     try {
 
-                        const user = await User.findByPk(post.userId)
+                        const userwhoPosted = await User.findByPk(post.userId)
 
-                        await User.update({ xp: user.xp + 5, level: Math.trunc((user.xp / 100)), coins: Math.trunc((userwhoLiked.level * 18)) }, { where: { id: post.userId } })
+
+
+
+
+                        if (userwhoPosted.role === "VIP") {
+                            await User.update({ xp: userwhoPosted.xp + 10, level: Math.trunc((userwhoPosted.xp / 100)), coins: Math.trunc((userwhoPosted.level * 20)) }, { where: { id: like.userId } })
+                        } else {
+                            await User.update({ xp: userwhoPosted.xp + 2, level: Math.trunc((userwhoPosted.xp / 100)), coins: Math.trunc((userwhoPosted.level * 10)) }, { where: { id: like.userId } })
+                        }
 
                     } catch (e) {
                         console.log(e)

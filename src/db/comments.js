@@ -20,8 +20,13 @@ module.exports = (sequelize, DataTypes) => {
                 beforeCreate: async function (comment) {
                     try {
                         const userwhoComment = await User.findByPk(comment.userId);
-                        await User.update({ xp: userwhoComment.xp + 50, level: Math.trunc((userwhoComment.xp / 100)), coins: Math.trunc((userwhoLiked.level * 18))  }, { where: { id: comment.userId } });
 
+
+                        if (userwhoComment.role === "VIP") {
+                            await User.update({ xp: userwhoComment.xp + 20, level: Math.trunc((userwhoComment.xp / 100)), coins: Math.trunc((userwhoComment.level * 20)) }, { where: { id: like.userId } })
+                        } else {
+                            await User.update({ xp: userwhoComment.xp + 10, level: Math.trunc((userwhoComment.xp / 100)), coins: Math.trunc((userwhoComment.level * 10)) }, { where: { id: like.userId } })
+                        }
                     } catch (e) {
                         console.log(e)
                     }

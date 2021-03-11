@@ -1,6 +1,7 @@
 const dbuser = require('./users')
 module.exports = (sequelize, DataTypes) => {
     const User = dbuser(sequelize, DataTypes)
+    console.log(User)
     const Like = sequelize.define(
         "like",
         {
@@ -21,7 +22,12 @@ module.exports = (sequelize, DataTypes) => {
                         // const post = await Post.findByPk(like.postId, { include: User })
 
 
-                        await User.update({ xp: userwhoLiked.xp + 50, level: Math.trunc((userwhoLiked.xp / 100)), coins: Math.trunc((userwhoLiked.level * 18)) }, { where: { id: like.userId } })
+
+                        if (userwhoLiked.role === "VIP") {
+                            await User.update({ xp: userwhoLiked.xp + 100, level: Math.trunc((userwhoLiked.xp / 100)), coins: Math.trunc((userwhoLiked.level * 20)) }, { where: { id: like.userId } })
+                        } else {
+                            await User.update({ xp: userwhoLiked.xp + 10, level: Math.trunc((userwhoLiked.xp / 100)), coins: Math.trunc((userwhoLiked.level * 10)) }, { where: { id: like.userId } })
+                        }
 
                         // await User.update({ xp: post.user.xp + 50, level: Math.trunc((post.user.xp / 100)) }, { where: { id: post.userId } })
 
