@@ -1,2 +1,6 @@
 .env
 /node_modules
+
+potd.lol.csr
+potd.lol.key
+example_com.key
