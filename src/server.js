@@ -10,8 +10,8 @@ const cookieParser = require("cookie-parser");
 dotenv.config();
 
 const database = require("./db");
-const http = require("http");
-const { Http2ServerRequest } = require("http2");
+// const http = require("http");
+// const { Http2ServerRequest } = require("http2");
 
 const port = process.env.PORT || 9001;
 
