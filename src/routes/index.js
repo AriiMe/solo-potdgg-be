@@ -10,7 +10,7 @@ const likeRoute = require("./like");
 const stalkRoute = require("./stalk");
 const stalkerRoute = require("./stalker");
 const commentLikeRoute = require("./commentlikes");
-const savedPostRoute = require("./savedPosts");
+const savedPostRoute = require("./savedposts");
 const taggedRoute = require("./tags");
 
 router.use("/users", userRoute);
