@@ -176,6 +176,31 @@ router.put(
         }
     }
 );
+router.put(
+    "/:id/upload/register",
+    cloudinaryMulter.single("ProfilePic"),
+    async (req, res) => {
+
+        try {
+            const user = await User.findByPk(req.params.id)
+            if (user.dataValues.imgurl === "https://res.cloudinary.com/dhmw620tl/image/upload/v1611844643/benchmark3/i91vqe984yfdir5xp8xh.png") {
+                const alteredIMG = await User.update(
+                    { ...req.body, imgurl: req.file.path },
+                    {
+                        where: { id: req.params.id },
+                        returning: true,
+                    }
+                );
+                res.send(alteredIMG);
+            } else {
+                res.status(401).send("Unauthorized: This is not your account!");
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Something went bad!");
+        }
+    }
+);
 
 router.route("/refresh/token").post(async (req, res, next) => {
     try {
