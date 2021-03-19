@@ -14,7 +14,7 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: "CHANGENAME",
+        folder: "potd-posts",
     },
 });
 const cloudinaryMulter = multer({ storage: storage });

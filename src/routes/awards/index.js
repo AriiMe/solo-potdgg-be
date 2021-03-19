@@ -7,14 +7,14 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: "CHANGENAME",
+        folder: "awards-potd",
     },
 });
 const cloudinaryMulter = multer({ storage: storage });
 
 const router = express.Router();
 
-router.post("/:userId/:postId",cloudinaryMulter.single("Awards"), async (req, res) => {
+router.post("/:userId/:postId", cloudinaryMulter.single("Awards"), async (req, res) => {
     try {
         const award = await Awards.findOne({
             where: { userId: req.params.userId, postId: req.params.postId },

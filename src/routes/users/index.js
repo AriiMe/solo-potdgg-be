@@ -11,7 +11,7 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: "BW4",
+        folder: "potd-profilepics",
     },
 });
 const cloudinaryMulter = multer({ storage: storage });
