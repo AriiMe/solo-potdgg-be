@@ -52,9 +52,13 @@ router.route("/login").post(async (req, res, next) => {
                 );
                 res.cookie("accessToken", accessToken, {
                     httpOnly: true,
+                    secure: true, //set to true when deploy
+                    sameSite: "none", //set to none when deploy
                 });
                 res.cookie("refreshToken", refreshToken, {
                     httpOnly: true,
+                    secure: true, //set to true when deploy
+                    sameSite: "none", //set to none when deploy
                 });
                 res.send(user);
             } else {
