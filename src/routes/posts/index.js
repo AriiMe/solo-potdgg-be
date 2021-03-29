@@ -69,6 +69,28 @@ router.get("/", async (req, res) => {
 
             ],
         });
+        console.log(allPosts[0].createdAt)
+        res.send(allPosts);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Something went bad!");
+    }
+});
+
+router.get("/hotPosts", async (req, res) => {
+    try {
+        const allPosts = await Post.findAll({
+            include: [
+                User,
+                { model: Comment, include: [User, CommentLike, Reply] },
+                Like,
+
+            ],
+        });
+
+
+        // const response = allPosts.filter( post => post.createdAt > Date.now() )
+
         res.send(allPosts);
     } catch (error) {
         console.log(error);
