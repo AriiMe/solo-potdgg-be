@@ -117,7 +117,6 @@ router.get("/:id", authenticate, async (req, res) => {
                     { model: Stalk, include: [{ model: User, as: "stalking" }] },
                     { model: Stalker, include: [{ model: User, as: "stalker" }] },
                     Tagged,
-                    ,
                     SavedPost,
                 ],
             });
