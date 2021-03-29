@@ -14,6 +14,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: "potd-posts",
+        resource_type: "video"
     },
 });
 const cloudinaryMulter = multer({ storage: storage });
