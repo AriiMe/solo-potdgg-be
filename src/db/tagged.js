@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         { timestamps: true }
     );
     Tagged.associate = (models) => {
-        Tagged.belongsTo(models.Post);
         Tagged.belongsTo(models.User);
     };
     return Tagged;
