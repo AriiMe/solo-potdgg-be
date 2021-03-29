@@ -6,7 +6,6 @@ const Like = require("../../db").Like;
 const CommentLike = require("../../db").CommentLike;
 const Reply = require("../../db").Reply;
 const ReplyLike = require("../../db").ReplyLike;
-const Tagged = require("../../db").Tagged;
 const multer = require("multer");
 const cloudinary = require("../../cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
@@ -42,7 +41,7 @@ router.get("/", async (req, res) => {
                 User,
                 { model: Comment, include: [User, CommentLike, Reply] },
                 Like,
-                Tagged,
+
             ],
         });
         res.send(allPosts);
@@ -59,7 +58,7 @@ router.get("/:id", async (req, res) => {
                 User,
                 { model: Comment, include: [User, CommentLike, Reply] },
                 Like,
-                Tagged,
+
             ],
         });
         res.send(singlePost);
