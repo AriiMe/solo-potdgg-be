@@ -20,7 +20,7 @@ const cloudinaryMulter = multer({ storage: storage });
 
 const router = express.Router();
 
-router.post("/", cloudinaryMulter.single("PostImage"), async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const newPost = await Post.create({
             ...req.body,
@@ -33,6 +33,31 @@ router.post("/", cloudinaryMulter.single("PostImage"), async (req, res) => {
         res.status(500).send("Something went bad!");
     }
 });
+router.put(
+    "/:id/upload",
+    cloudinaryMulter.single("PostImage"),
+    async (req, res) => {
+
+        try {
+            const posts = await Post.findByPk(req.params.id)
+            if (posts.dataValues.userId === req.user.dataValues.id) {
+                const alteredIMG = await Post.update(
+                    { ...req.body, imgurl: req.file.path },
+                    {
+                        where: { id: req.params.id },
+                        returning: true,
+                    }
+                );
+                res.send(alteredIMG);
+            } else {
+                res.status(401).send("Unauthorized: This is not your account!");
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Something went bad!");
+        }
+    }
+);
 
 router.get("/", async (req, res) => {
     try {
