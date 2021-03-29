@@ -24,8 +24,7 @@ router.post("/", async (req, res) => {
     try {
         const newPost = await Post.create({
             ...req.body,
-            userId: req.user.dataValues.id,
-            imgurl: req.file.path,
+            userId: req.user.dataValues.id
         });
         res.status(201).send(newPost);
     } catch (error) {
