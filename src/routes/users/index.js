@@ -33,17 +33,10 @@ router.route("/register").post(async (req, res, next) => {
             const msg = {
                 to: req.body.email, // Change to your recipient
                 from: 'support@potd.lol', // Change to your verified sender
-                subject: 'Welcum!',
+                subject: `Welcome aboard ${req.body.username}! `,
                 text: 'Thank you for joining potd.lol have a great time here',
-                html: '<strong>your potd team</strong>',
-                "filters": {
-                    "templates": {
-                        "settings": {
-                            "enable": 1,
-                            "template_id": "d-f1409979d7824aa19e1ca007f51eebff"
-                        }
-                    }
-                }
+                html: '<strong>Thank you for joining potd.lol have a great time here</strong>',
+                templateId: 'd-f1409979d7824aa19e1ca007f51eebff',
             }
             sgMail
                 .send(msg)
