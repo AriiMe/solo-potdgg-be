@@ -27,6 +27,26 @@ router.route("/register").post(async (req, res, next) => {
                 "https://res.cloudinary.com/dhmw620tl/image/upload/v1611844643/benchmark3/i91vqe984yfdir5xp8xh.png",
         });
         res.send(newUser);
+        if (newUser) {
+            const sgMail = require('@sendgrid/mail')
+            sgMail.setApiKey(process.env.SEND_GRID_KEY)
+            const msg = {
+                to: req.body.email, // Change to your recipient
+                from: 'support@potd.lol', // Change to your verified sender
+                subject: 'Welcum!',
+                text: 'Thank you for joining potd.lol have a great time here',
+                html: '<strong>your potd team</strong>',
+            }
+            sgMail
+                .send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+
+        }
     } catch (error) {
         console.log(error);
         next(error);
