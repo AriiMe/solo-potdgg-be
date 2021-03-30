@@ -8,6 +8,7 @@ const Reply = require("../../db").Reply;
 const ReplyLike = require("../../db").ReplyLike;
 const multer = require("multer");
 const cloudinary = require("../../cloudinary");
+const moment = require('moment');
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 const storage = new CloudinaryStorage({
@@ -69,7 +70,7 @@ router.get("/", async (req, res) => {
 
             ],
         });
-        console.log(allPosts[0].createdAt)
+
         res.send(allPosts);
     } catch (error) {
         console.log(error);
@@ -88,10 +89,25 @@ router.get("/hotPosts", async (req, res) => {
             ],
         });
 
+        //console.log(allPosts.map(p => p.dataValues))
 
-        // const response = allPosts.filter( post => post.createdAt > Date.now() )
 
-        res.send(allPosts);
+        const hotPosts = allPosts.filter(post => {
+
+            // moment(post.createdAt) is earlier than moment().subtract(1, 'day')?
+            //console.log(moment(post.dataValues.createdAt, 'YYYY-MM-DDTHH:mm:SSS[Z]').toDate())
+            //console.log(moment(Date.now()).subtract(1, 'day').toDate())
+
+            return moment(post.dataValues.createdAt, 'YYYY-MM-DDTHH:mm:SSS[Z]').isAfter(moment(Date.now()).subtract(1, 'day'))
+            // return false 
+            // else return true
+
+
+            //post.createdAt > Date.now(moment().subtract(1, 'day'))
+
+        })
+
+        res.send(hotPosts);
     } catch (error) {
         console.log(error);
         res.status(500).send("Something went bad!");
