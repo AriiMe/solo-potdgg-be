@@ -25,9 +25,9 @@ const app = express();
 
 const whitelist = [
   "http://localhost:3000",
-  "http://localhost:300/login",
   "http://localhost:9001",
-  "https://www.potd.lol/"
+  "https://www.potd.lol/",
+  "https://www.potd.lol/login"
 ];
 
 const corsOptions = {
