@@ -30,9 +30,9 @@ module.exports = (sequelize, DataTypes) => {
             email: {
                 type: DataTypes.STRING,
                 allowNull: true,
-                get() {
-                    return () => this.getDataValue('email');
-                }
+                // get() {
+                //     return () => this.getDataValue('email');
+                // }
             },
             phonenumber: {
                 type: DataTypes.INTEGER,
