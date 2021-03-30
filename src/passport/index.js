@@ -62,7 +62,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET,
-            callbackURL: "http://localhost:9001/users/googleRedirect",
+            callbackURL: "https://www.potd.lol/googleOauth",
         },
         async (accessToken, refreshToken, profile, done) => {
             const newUser = {
