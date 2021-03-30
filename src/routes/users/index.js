@@ -7,7 +7,7 @@ const SavedPost = require("../../db").SavedPost;
 const multer = require("multer");
 const cloudinary = require("../../cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
-
+const sgMail = require('@sendgrid/mail')
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
@@ -28,7 +28,7 @@ router.route("/register").post(async (req, res, next) => {
         });
         res.send(newUser);
         if (newUser) {
-            const sgMail = require('@sendgrid/mail')
+
             sgMail.setApiKey(process.env.SEND_GRID_KEY)
             const msg = {
                 to: req.body.email, // Change to your recipient
@@ -41,6 +41,7 @@ router.route("/register").post(async (req, res, next) => {
                 .send(msg)
                 .then(() => {
                     console.log('Email sent')
+                    res.send("request finished")
                 })
                 .catch((error) => {
                     console.error(error)
