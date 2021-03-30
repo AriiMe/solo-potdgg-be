@@ -36,6 +36,14 @@ router.route("/register").post(async (req, res, next) => {
                 subject: 'Welcum!',
                 text: 'Thank you for joining potd.lol have a great time here',
                 html: '<strong>your potd team</strong>',
+                "filters": {
+                    "templates": {
+                        "settings": {
+                            "enable": 1,
+                            "template_id": "d-f1409979d7824aa19e1ca007f51eebff"
+                        }
+                    }
+                }
             }
             sgMail
                 .send(msg)
