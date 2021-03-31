@@ -7,6 +7,7 @@ const Stalker = require("../../db").Stalker;
 const Tagged = require("../../db").Tagged;
 const SavedPost = require("../../db").SavedPost;
 const multer = require("multer");
+const passport = require("passport");
 const cloudinary = require("../../cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const sgMail = require("@sendgrid/mail");
@@ -95,24 +96,26 @@ router.route("/login").post(async (req, res, next) => {
         next(error);
     }
 });
-router.post("/logout", authenticate, async (req, res, next) => {
-    try {
-        req.user.JWT_REFRESH_KEY = req.user.JWT_REFRESH_KEY.filter(
-            (t) => t !== req.cookies.JWT_REFRESH_KEY
-        );
-        await User.update(
-            { JWT_REFRESH_KEY: req.user.JWT_REFRESH_KEY },
-            { where: { id: req.user.id } }
-        );
+router.post(
+    "/logout",
+    passport.authenticate("jwt", { session: false }), async (req, res, next) => {
+        try {
+            req.user.JWT_REFRESH_KEY = req.user.JWT_REFRESH_KEY.filter(
+                (t) => t !== req.cookies.JWT_REFRESH_KEY
+            );
+            await User.update(
+                { JWT_REFRESH_KEY: req.user.JWT_REFRESH_KEY },
+                { where: { id: req.user.id } }
+            );
 
-        res.clearCookie("accessToken");
-        res.clearCookie("refreshToken");
-        res.status(200).send();
-    } catch (e) {
-        console.log(e);
-        next(e);
-    }
-});
+            res.clearCookie("accessToken");
+            res.clearCookie("refreshToken");
+            res.status(200).send();
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    });
 
 router.get("/me", authenticate, async (req, res, next) => {
     try {
