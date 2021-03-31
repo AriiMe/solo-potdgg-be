@@ -19,6 +19,29 @@ const jwt = require("jsonwebtoken");
 const { authenticate, refreshToken } = require("../../auth");
 const router = require("express").Router();
 
+router.post(
+    "/logout",
+    passport.authenticate("jwt", { session: false }),
+    async (req, res, next) => {
+        try {
+            req.user.refresh_tokens = req.user.refresh_tokens.filter(
+                (t) => t !== req.cookies.refreshToken
+            );
+            await User.update(
+                { refresh_tokens: req.user.refresh_tokens },
+                { where: { id: req.user.id } }
+            );
+
+            res.clearCookie("accessToken");
+            res.clearCookie("refreshToken");
+            res.status(200).send();
+        } catch (e) {
+            console.log(e);
+            next(e);
+        }
+    }
+);
+
 router.route("/register").post(async (req, res, next) => {
     try {
         const newUser = await User.create({
