@@ -97,12 +97,8 @@ router.route("/login").post(async (req, res, next) => {
     }
 });
 router.post(
-    "/logout",
-    passport.authenticate("jwt", { session: false }), async (req, res, next) => {
+    "/logout", authenticate, async (req, res, next) => {
         try {
-            req.user.JWT_REFRESH_KEY = req.user.JWT_REFRESH_KEY.filter(
-                (t) => t !== req.cookies.JWT_REFRESH_KEY
-            );
             await User.update(
                 { JWT_REFRESH_KEY: req.user.JWT_REFRESH_KEY },
                 { where: { id: req.user.id } }
