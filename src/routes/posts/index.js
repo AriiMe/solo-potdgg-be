@@ -133,6 +133,38 @@ router.get("/trendingPosts", async (req, res) => {
     res.status(500).send("Something went bad!");
   }
 });
+router.get("/hotPosts/:id", async (req, res) => {
+  try {
+    const singlePost = await Post.findByPk(req.params.id, {
+      include: [
+        User,
+        { model: Comment, include: [User, CommentLike, Reply] },
+        Like,
+      ],
+      order: [[{ model: Comment }, 'createdAt', 'desc']],
+    });
+    res.send(singlePost);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something went bad!");
+  }
+});
+router.get("/trendingPosts/:id", async (req, res) => {
+  try {
+    const singlePost = await Post.findByPk(req.params.id, {
+      include: [
+        User,
+        { model: Comment, include: [User, CommentLike, Reply] },
+        Like,
+      ],
+      order: [[{ model: Comment }, 'createdAt', 'desc']],
+    });
+    res.send(singlePost);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something went bad!");
+  }
+});
 
 router.get("/:id", async (req, res) => {
   try {
