@@ -13,7 +13,7 @@ router.post("/:postID", async (req, res) => {
             ...req.body,
             userId: req.user.dataValues.id,
             postId: req.params.postID,
-        }); //.create IS A SEQUELIZE METHOD DOR MODELS, IT CREATES A NEW ROW IN THE TABLE
+        });
         res.status(201).send(newComment);
     } catch (error) {
         console.log(error);

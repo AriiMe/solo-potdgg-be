@@ -23,9 +23,9 @@ module.exports = (sequelize, DataTypes) => {
 
 
                         if (userwhoComment.role === "VIP") {
-                            await User.update({ xp: userwhoComment.xp + 20, level: Math.trunc((userwhoComment.xp / 100)), coins: Math.trunc((userwhoComment.level * 20)) }, { where: { id: like.userId } })
+                            await User.update({ xp: userwhoComment.xp + 20, level: Math.trunc((userwhoComment.xp / 100)), coins: Math.trunc((userwhoComment.level * 20)) }, { where: { id: comment.userId } })
                         } else {
-                            await User.update({ xp: userwhoComment.xp + 10, level: Math.trunc((userwhoComment.xp / 100)), coins: Math.trunc((userwhoComment.level * 10)) }, { where: { id: like.userId } })
+                            await User.update({ xp: userwhoComment.xp + 10, level: Math.trunc((userwhoComment.xp / 100)), coins: Math.trunc((userwhoComment.level * 10)) }, { where: { id: comment.userId } })
                         }
                     } catch (e) {
                         console.log(e)
