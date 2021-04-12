@@ -3,7 +3,7 @@ const UserSchema = require("./schema");
 
 const authenticate = async (user) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_KEY, {
-        expiresIn: "15000",
+        expiresIn: "1 day",
     });
     const refreshToken = jwt.sign(
         { id: user.id },
