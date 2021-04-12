@@ -142,6 +142,7 @@ router.get("/:id", async (req, res) => {
         { model: Comment, include: [User, CommentLike, Reply] },
         Like,
       ],
+      order: [[{ model: Comment }, 'createdAt', 'asc']],
     });
     res.send(singlePost);
   } catch (error) {
